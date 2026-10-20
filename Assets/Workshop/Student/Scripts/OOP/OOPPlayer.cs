@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,7 @@ namespace Solution
             inventory = GetComponent<Inventory>();
             moveAction = InputSystem.actions.FindAction("Move");
             fireAction = InputSystem.actions.FindAction("Attack");
+            actionHistoryManager.SaveStateForUndo(new Vector2(positionX,positionY));
         }
 
         public void Update()
@@ -71,6 +73,7 @@ namespace Solution
             base.Move(direction);
             mapGenerator.MoveEnemies();
             // Save the state AFTER the move
+            actionHistoryManager.SaveStateForUndo(new Vector2(positionX,positionY));
       
         }
 
